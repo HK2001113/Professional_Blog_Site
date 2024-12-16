@@ -1,0 +1,88 @@
+
+    <%- include("partials/header") %>
+    
+    
+    <form action="/create" method="POST">
+        <input type="text" name="title" placeholder="Title" aria-label="title" required >
+        <textarea type="text" name="content" aria-label="content" placeholder="Write your blog post here..." required></textarea>
+        <button type="submit" aria-label="Create_Blog" value="Create_Blog">Create Blog</button>
+    </form>
+
+    <h2>All blogs</h2>
+
+
+    <ul>
+        <% if (posts.length === 0) { %>
+            <p>No blog posts available. Be the first to create one.</p>
+
+        <% } %>
+        
+        
+        <% posts.forEach((post, index) => { %>
+            <li>
+                <!-- display post title -->
+                <h2><%= post.title %></h2>
+                <!-- display post content -->
+                <p><%= post.content %></p>
+                <!-- edit and delete button with unique index -->
+                <a href="/edit/<%= index %>" class="btn">Edit</a>
+                <a href="#" data-id="<%= index %>" class="btn delete-btn">Delete</a>
+            </li>
+        <% }) %>
+    </ul>
+
+    <!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <h2>Delete Confirmation</h2>
+        <p>Are you sure you want to delete this blog post?</p>
+        <div class="modal-actions">
+            <a href="#" id="confirmDelete" class="btn danger">Delete</a>
+            <button type="button" id="cancelDelete" class="btn">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const deleteButtons = document.querySelectorAll(".delete-btn"); // Select all delete buttons
+    const deleteModal = document.getElementById("deleteModal"); // Modal element
+    const confirmDelete = document.getElementById("confirmDelete"); // Confirm delete button
+    const cancelDelete = document.getElementById("cancelDelete"); // Cancel delete button
+    let postIdToDelete = null; // Track the post ID to delete
+
+    // Open Modal
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", (e) => {
+            e.preventDefault();
+            postIdToDelete = button.getAttribute("data-id"); // Get post ID from data attribute
+            deleteModal.style.display = "block"; // Show modal
+        });
+    });
+
+    // Confirm Delete
+    confirmDelete.addEventListener("click", () => {
+        if (postIdToDelete !== null) {
+            window.location.href = `/delete/${postIdToDelete}`; // Redirect to delete route
+        }
+    });
+
+    // Cancel Delete
+    cancelDelete.addEventListener("click", () => {
+        deleteModal.style.display = "none"; // Hide modal
+        postIdToDelete = null; // Reset post ID
+    });
+
+    // Close modal when clicking outside the modal content
+    window.addEventListener("click", (e) => {
+        if (e.target === deleteModal) {
+            deleteModal.style.display = "none"; // Hide modal
+            postIdToDelete = null; // Reset post ID
+        }
+    });
+});
+    </script>
+
+
+    <%- include("partials/footer") %>

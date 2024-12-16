@@ -1,0 +1,11 @@
+<%- include("partials/header") %>
+
+<% let post = posts[postId]; %>
+
+<form action="/edit/<%= postId %>" method ="POST">
+    <input type="text" aria-label="title" name="title" value="<%= posts[postId].title %>" placeholder="title"  required >
+    <textarea type="text" name="content" aria-label="content" ><%= posts[postId].content %></textarea>
+    <button type="submit" aria-label="submit" value="Update_Blog">Update Blog</button>
+</form>
+
+<%- include("partials/footer") %>

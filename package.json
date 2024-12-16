@@ -1,0 +1,17 @@
+{
+  "name": "professional_blog_site",
+  "version": "1.0.0",
+  "description": "A dynamic blog web application built with Node.js, Express.js, and EJS. This application allows users to create, view, edit, and delete blog posts. The posts are not persisted between sessions as no database is used in this version. The app is designed to be responsive and showcases full-stack skills.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hazique_Hussain_Khan",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}
